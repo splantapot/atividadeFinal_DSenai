@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+    <form action="/login" method="post" class="centered sized form-box">
+        <h3>Login</h3>
+        <div class="fields">
+            <label for="email">Email:</label>
+            <input name="email" type="email" placeholder="seu_email@gmail.com" required>
+
+            <label for="senha">Senha:</label>
+            <input name="senha" type="password" placeholder="Sua senha" required>
+        </div>
+        <input type="submit" value="Entrar">
+        <a href="/usuario/recuperar">Esqueci minha senha</a>
+        <a href="/usuario/cadastrar">Não possui cadastro? Cadastre-se aqui!</a>
+    </form>
+</body>
+</html>

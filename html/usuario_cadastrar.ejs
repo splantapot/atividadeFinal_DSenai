@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+    <form action="/login" method="post" class="centered sized form-box" id="form-cadastro">
+        <h3>Cadastro de Usuário</h3>
+        <h6>Os campos com * são obrigatórios</h6>
+        <div class="fields">
+            
+            <label for="nome">Nome:*</label>
+            <input name="nome" placeholder="Seu nome" required>
+
+            <label for="email">Email:*</label>
+            <input name="email" type="email" placeholder="seu_email@gmail.com" required>
+
+            <label for="senha">Senha:*</label>
+            <input name="senha" type="password" placeholder="Sua senha" required>
+
+            <label for="confirma">Confirme sua senha:*</label>
+            <input name="confirma" type="password" placeholder="Sua senha" required>
+
+            <label for="descricao">Descrição do perfil (Bio):</label>
+            <input name="descricao" placeholder="Descreva você">
+
+            <div class="button-fields">
+                <div onclick="navigateFromTo('form-cadastro', 'foto-div')">Foto de Perfil</div>
+                <div onclick="navigateFromTo('form-cadastro', 'redes-div')">Redes Sociais</div>
+            </div>
+        </div>
+        <input type="submit" value="Entrar">
+        <a href="/login">Se já possui conta, entre aqui.</a>
+    </form>
+
+    <div id="foto-div" class="centered sized box hidden">
+        <h3>Foto de Perfil</h3>
+        <img class="perfil" id="imagem_IMG" src="/images/guest.png" alt="Imagem de Perfil" width="100px" height="100px">
+        <input type="file" name="imagem_perfil" id="imagem_perfil" onclick="console.log('ue')" accept=".jpg, .jpeg, .png">
+        <div class="button-fields"><div onclick="navigateFromTo('foto-div','form-cadastro')">Voltar</div></div>
+    </div>
+
+    <div id="redes-div" class="centered sized box hidden">
+        Redes sociais
+        <div class="button-fields"><div onclick="navigateFromTo('redes-div','form-cadastro')">Voltar</div></div>
+    </div>
+
+    <script src="/js/navigation.js"></script>
+    <script src="/js/imageControl.js"></script>
+    <script>
+        controlImage("imagem_perfil");
+    </script>
+</body>
+</html>
