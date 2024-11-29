@@ -34,7 +34,6 @@
 
 .box {
     gap: 10px;
-    text-align: center;
 }
 
 form h3, .box h3 {
@@ -64,7 +63,7 @@ form input, .box input, .button-fields * {
     margin-bottom: 8px;
 }
 
-form input[type="submit"]:hover, .button-fields *:hover {
+form input[type="submit"]:hover, .button-fields *:hover, input[type="button"]:hover {
     filter: brightness(0.7);
     scale: 1.04;
 }
@@ -89,12 +88,56 @@ form a:hover {
     text-align: center;
 }
 
-img.perfil {
+.button-fields label {
+    border: 0;
+}
+
+.perfil {
+    flex-basis: 150px;
+    width: 150px;
+    margin: auto;
+}
+
+.perfil img {
     object-fit: cover;
-    border: 1px solid gray;
     border-radius: 50%;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+}
+
+.vertical-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+.rede-social-info {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+    justify-content: space-between;
+    justify-items: center;
+}
+
+.rede-social-info input {
+    width: 40%;
+}
+
+.rede-social-info input[type="button"] {
+    background-color: rgb(255,100,120);
 }
 
 .hidden {
     display: none;
+}
+
+.g {
+    background-color: rgb(100,255,120);
 }

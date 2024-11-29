@@ -8,51 +8,70 @@
     <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
-    <form action="/login" method="post" class="centered sized form-box" id="form-cadastro">
-        <h3>Cadastro de Usuário</h3>
-        <h6>Os campos com * são obrigatórios</h6>
-        <div class="fields">
-            
-            <label for="nome">Nome:*</label>
-            <input name="nome" placeholder="Seu nome" required>
+    <form action="/login" method="post" class="centered sized form-box">
+        <div  id="form-cadastro">
+            <h3>Cadastro de Usuário</h3>
+            <h6>Os campos com * são obrigatórios</h6>
+            <div class="fields">
+                
+                <label for="nome">Nome:*</label>
+                <input name="nome" placeholder="Nome Completo" required>
 
-            <label for="email">Email:*</label>
-            <input name="email" type="email" placeholder="seu_email@gmail.com" required>
+                <label for="email">Email:*</label>
+                <input name="email" type="email" placeholder="Ex: seu_email@gmail.com" required>
 
-            <label for="senha">Senha:*</label>
-            <input name="senha" type="password" placeholder="Sua senha" required>
+                <label for="senha">Senha:*</label>
+                <input name="senha" type="password" placeholder="Senha" required>
 
-            <label for="confirma">Confirme sua senha:*</label>
-            <input name="confirma" type="password" placeholder="Sua senha" required>
+                <label for="confirma">Confirme sua senha:*</label>
+                <input name="confirma" type="password" placeholder="Confirmar senha" required>
 
-            <label for="descricao">Descrição do perfil (Bio):</label>
-            <input name="descricao" placeholder="Descreva você">
+                <label for="descricao">Descrição do perfil (Bio):</label>
+                <input name="descricao" placeholder="Descreva você">
 
-            <div class="button-fields">
-                <div onclick="navigateFromTo('form-cadastro', 'foto-div')">Foto de Perfil</div>
-                <div onclick="navigateFromTo('form-cadastro', 'redes-div')">Redes Sociais</div>
+                <div class="button-fields">
+                    <div id="button_perfil" onclick="navigateFromTo('form-cadastro', 'foto-div')">Foto de Perfil: <label>Não</label></div>
+                    <div id="button_social_media" onclick="navigateFromTo('form-cadastro', 'redes-div')">Redes Sociais: <label>0</label></div>
+                </div>
+                <input type="submit" value="Entrar">
             </div>
+            <a href="/login">Se já possui conta, entre aqui.</a>
         </div>
-        <input type="submit" value="Entrar">
-        <a href="/login">Se já possui conta, entre aqui.</a>
+
+        <div id="foto-div" class="hidden">
+            <h3>Foto de Perfil</h3>
+            <div class="perfil">
+                <img id="imagem_img" src="/images/guest.png" alt="Imagem de Perfil" width="150px" height="150px">
+            </div>
+            <input type="file" name="imagem_perfil" id="imagem_perfil" accept=".jpg, .jpeg, .png">
+            <div class="button-fields"><div onclick="navigateFromTo('foto-div','form-cadastro')">Voltar</div></div>
+        </div>
+
+        <div id="redes-div" class="hidden">
+            <h3>Redes sociais</h3>
+            <div class="button-fields">
+                <div onclick="addSocialMedia()">Adicionar</div>
+            </div>
+            <div id="redes-lista" class="vertical-list"></div>
+            <datalist id="redes-datalist">
+                <option value="Facebook"></option>
+                <option value="Instagram"></option>
+                <option value="X"></option>
+                <option value="LinkedIn"></option>
+                <option value="TikTok"></option>
+                <option value="Pinterest"></option>
+                <option value="WhatsApp"></option>
+            </datalist>
+            <div class="button-fields"><div onclick="validateSocialMedia()">Voltar</div></div>
+        </div>
     </form>
-
-    <div id="foto-div" class="centered sized box hidden">
-        <h3>Foto de Perfil</h3>
-        <img class="perfil" id="imagem_IMG" src="/images/guest.png" alt="Imagem de Perfil" width="100px" height="100px">
-        <input type="file" name="imagem_perfil" id="imagem_perfil" onclick="console.log('ue')" accept=".jpg, .jpeg, .png">
-        <div class="button-fields"><div onclick="navigateFromTo('foto-div','form-cadastro')">Voltar</div></div>
-    </div>
-
-    <div id="redes-div" class="centered sized box hidden">
-        Redes sociais
-        <div class="button-fields"><div onclick="navigateFromTo('redes-div','form-cadastro')">Voltar</div></div>
-    </div>
 
     <script src="/js/navigation.js"></script>
     <script src="/js/imageControl.js"></script>
+    <script src="/js/socialMediaControl.js"></script>
     <script>
-        controlImage("imagem_perfil");
+        controlImage();
+        controlSocialMedia();
     </script>
 </body>
 </html>
