@@ -44,5 +44,20 @@ module.exports = {
                 }
             });
         })
+    },
+
+    atualizarSenhaDoEmail(senha, email, db = DB_DEFAULT) {
+        return new Promise((resolve, reject) => {
+            const query = 'UPDATE usuarios SET hash_senha = ? WHERE email = ?';
+            const hash_senha = sha1(senha);
+            db.run(query, [hash_senha, email], (err) => {
+                if (err) {
+                    console.log('Upd Senha via Email err:', err.message);
+                    reject(err)
+                } else {
+                    resolve()
+                }
+            })
+        });
     }
 }

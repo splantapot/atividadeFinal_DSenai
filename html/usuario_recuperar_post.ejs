@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+    <form action="/usuario/recuperar" method="post" class="centered sized form-box">
+        <h3>Redefinição de Senha</h3>
+        <h4>Verifique o código enviado para o email "<%= email %>" e preencha o campo a seguir em até 3 minutos.</h4>
+        <div class="fields">
+            <input type="hidden" name="email" value="<%= email %>">
+
+            <label for="code">Código:</label>
+            <input name="code" required>
+        </div>
+        <input type="submit" value="Continuar">
+        <a href="/">Voltar para o login</a>
+    </form>
+
+    <script src="/js/notification.js"></script>
+    <script>
+        const errorList = {'1': 'Código inválido!'};
+        const error = "<%- typeof error !== 'undefined' ? JSON.stringify(error) : '0' %>"
+        if (errorList[String(error)]) {
+            alert(errorList[String(error)]);
+        }
+    </script>
+</body>
+</html>

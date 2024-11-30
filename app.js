@@ -9,6 +9,7 @@ const app = express()
 const session = require('express-session');
 
 const db = require('./server/db_manage.js');
+const email_manager = require('./server/email_manager.js');
 // MODULE CONFIGURATION -------------------------------------------------------
 
 // setup directories
@@ -141,6 +142,44 @@ app.post('/usuario/cadastrar', async (req, res) => {
         res.redirect('/login?s=1');
     }
 });
+
+app.get('/usuario/recuperar', async (req, res) => {
+    res.render('usuario_recuperar_get');
+});
+
+app.post('/usuario/recuperar', async (req, res) => {
+    const {email, code} = req.body;
+    
+    if (!code) {
+        const codigo = email_manager.gerarCodigoDeVerificacao(8);
+    
+        await email_manager.enviarEmail(
+            email,
+            'Recuperação de Email',
+            `Código para recuperação do email em "Criador de Portfólios.com": ${codigo}`
+        );
+    
+        res.cookie('verificationCode', codigo, {
+            maxAge: 180000,
+            httpOnly: true,
+            sameSite: 'strict'
+        });
+    
+        return res.render('usuario_recuperar_post', {email});
+    } else {
+        if (code != req.cookies.verificationCode) {
+            return res.render('usuario_recuperar_post', {email, error:1})
+        } else {
+            res.render('usuario_redefinir', {email});
+        }
+    }
+});
+
+app.post('/usuario/redefinir', async (req, res) => {
+    const {email, senha} = req.body;
+    await db.usuario.atualizarSenhaDoEmail(senha, email);
+    res.redirect('/login?s=2');
+})
 
 // Home
 app.get('/menu', verificarLogin, (req, res) => {

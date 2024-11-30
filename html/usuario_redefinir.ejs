@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+    <form action="/usuario/redefinir" onsubmit="validatePassword(event)" method="post" class="centered sized form-box">
+        <h3>Redefinição de Senha</h3>
+        <h4>Redefinição para o email "<%= email %>"</h4>
+        <div class="fields">
+            <input type="hidden" name="email" value="<%= email %>">
+
+            <label for="senha">Nova Senha:</label>
+            <input name="senha" type="password" placeholder="Senha" required>
+
+            <label for="confirma">Confirme sua nova senha:*</label>
+            <input name="confirma" type="password" placeholder="Confirmar senha" required>
+
+            <input type="submit" value="Atualizar Senha">
+        </div>
+        <a href="/">Voltar para o login</a>
+    </form>
+
+    <script src="/js/validation.js"></script>
+</body>
+</html>

@@ -36,8 +36,19 @@ class EmailManager {
             })
         })
     }
+
+    gerarCodigoDeVerificacao(codeQnt = 8) {
+        function rng(qnt = 1) {
+            return Math.floor(Math.random() * qnt);
+        }
+        let code = '';
+        for (let i = 0; i < codeQnt; i++) {
+            code += rng(10);
+        }
+        return code;
+    }
 }
 
-const emailManager = new EmailManager(process.env.SERVER_EMAIL, process.env.SERVER_SENHA);
+const emailManager = new EmailManager(process.env.SERVER_EMAIL, process.env.SERVER_SENHA_APP);
 
 module.exports = emailManager;
