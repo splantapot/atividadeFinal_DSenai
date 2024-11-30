@@ -17,9 +17,7 @@ function openDB(path = DB_PATH) {
 
 const DB_DEFAULT = openDB();
 
-// INSERT
-function cadastrarUsuario(nome, email, senha, descricao_perfil = '', imagem_perfil = '') {
-    return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO usuarios(nome, email, senha, descricao_perfil, imagem_perfil) VALUES (?,?,?,?,?)'
-    })
+module.exports = {
+    openDB,
+    DB_DEFAULT
 }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
-    <form action="/login" method="post" class="centered sized form-box">
+    <form action="/usuario/cadastrar" method="post" onsubmit="validateUserAdd(event)" class="centered sized form-box">
         <div  id="form-cadastro">
             <h3>Cadastro de Usuário</h3>
             <h6>Os campos com * são obrigatórios</h6>
@@ -33,7 +33,7 @@
                     <div id="button_perfil" onclick="navigateFromTo('form-cadastro', 'foto-div')">Foto de Perfil: <label>Não</label></div>
                     <div id="button_social_media" onclick="navigateFromTo('form-cadastro', 'redes-div')">Redes Sociais: <label>0</label></div>
                 </div>
-                <input type="submit" value="Entrar">
+                <input type="submit" value="Cadastrar">
             </div>
             <a href="/login">Se já possui conta, entre aqui.</a>
         </div>
@@ -44,6 +44,7 @@
                 <img id="imagem_img" src="/images/guest.png" alt="Imagem de Perfil" width="150px" height="150px">
             </div>
             <input type="file" name="imagem_perfil" id="imagem_perfil" accept=".jpg, .jpeg, .png">
+            <input type="hidden" name="imagem_blob" id="imagem_perfil_blob" value="">
             <div class="button-fields"><div onclick="navigateFromTo('foto-div','form-cadastro')">Voltar</div></div>
         </div>
 
@@ -66,12 +67,17 @@
         </div>
     </form>
 
-    <script src="/js/navigation.js"></script>
     <script src="/js/imageControl.js"></script>
     <script src="/js/socialMediaControl.js"></script>
+    <script src="/js/navigation.js"></script>
+    <script src="/js/validation.js"></script>
+    <script src="/js/notification.js"></script>
     <script>
         controlImage();
         controlSocialMedia();
+
+        const errorList = {'1': 'Esse email já foi registrado'};
+        notification(errorList);
     </script>
 </body>
 </html>

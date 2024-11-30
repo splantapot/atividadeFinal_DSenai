@@ -17,9 +17,19 @@
             <label for="senha">Senha:</label>
             <input name="senha" type="password" placeholder="Sua senha" required>
         </div>
+        <div>
+            <input type="checkbox" name="lembrar"><label> Lembrar-se do login.</label>
+        </div>
         <input type="submit" value="Entrar">
         <a href="/usuario/recuperar">Esqueci minha senha</a>
         <a href="/usuario/cadastrar">Não possui cadastro? Cadastre-se aqui!</a>
     </form>
+
+    <script src="/js/notification.js"></script>
+    <script>
+        const errorList = {'1': 'Credenciais Inválidas!'};
+        const successList = {'1': 'Cadastro efetuado com sucesso!'};
+        notification(errorList, successList);
+    </script>
 </body>
 </html>
