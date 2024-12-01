@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
+    <div class="offScreen hidden">
+        <button>Salvar</button>
+        <button>Cancelar</button>
+    </div>
+
     <form action="/usuario/cadastrar" method="post" onsubmit="validateUserAdd(event)" class="centered sized form-box">
         <div  id="form-cadastro">
             <h3>Cadastro de Usuário</h3>
@@ -41,10 +46,10 @@
         <div id="foto-div" class="hidden">
             <h3>Foto de Perfil</h3>
             <div class="perfil">
-                <img id="imagem_img" src="/images/guest.png" alt="Imagem de Perfil" width="150px" height="150px">
+                <img id="imagem_img" src="/images/guest.png" alt="Imagem de Perfil">
             </div>
             <input type="file" name="imagem_perfil" id="imagem_perfil" accept=".jpg, .jpeg, .png">
-            <input type="hidden" name="imagem_blob" id="imagem_perfil_blob" value="">
+            <input type="hidden" name="imagem_base64" id="imagem_perfil_blob" value="">
             <div class="button-fields"><div onclick="navigateFromTo('foto-div','form-cadastro')">Voltar</div></div>
         </div>
 

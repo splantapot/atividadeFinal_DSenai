@@ -1,5 +1,4 @@
 // MODULES --------------------------------------------------------------------
-const fs = require('fs');
 const sha1 = require('sha1');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -10,6 +9,7 @@ const session = require('express-session');
 
 const db = require('./server/db_manage.js');
 const email_manager = require('./server/email_manager.js');
+const img_manager = require('./server/img_manager.js');
 // MODULE CONFIGURATION -------------------------------------------------------
 
 // setup directories
@@ -33,23 +33,10 @@ app.use(session({
 }));
 
 // SETUP ----------------------------------------------------------------------
-//https://www.w3schools.com/nodejs/nodejs_email.asp
-const SERVER_EMAIL = 'criadordeportfolios@gmail.com';
-const SERVER_PASSWORD = '*criar1704*'
+//Don't forgot ".env" in server's root!
 const SERVER_PORT = 1101;
 
 // ROUTES ---------------------------------------------------------------------
-function getImageFromFile(path) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, (err, data) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(data)
-            }
-        })
-    });
-}
 
 // Auth
 app.get('/', async (req, res) => {
@@ -119,12 +106,12 @@ app.get('/usuario/cadastrar', (req, res) => {
 });
 
 app.post('/usuario/cadastrar', async (req, res) => {
-    const {nome, email, senha, descricao, imagem_blob} = req.body;
+    const {nome, email, senha, descricao, imagem_base64} = req.body;
     const user = await db.usuario.buscarPorEmail(email);
     if (user) {
         return res.redirect('/usuario/cadastrar?e=1');
     } else {
-        const usuarioId = await db.usuario.cadastrar(nome, email, senha, descricao, db.getBlobFromBase64(imagem_blob));
+        const usuarioId = await db.usuario.cadastrar(nome, email, senha, descricao, img_manager.base64_toBlob(imagem_base64));
         const socialMedial_IDs = [];
         for (const key in req.body) {
             if (key.includes('rs-name-')) {
@@ -184,7 +171,13 @@ app.post('/usuario/redefinir', async (req, res) => {
 // Home
 app.get('/menu', verificarLogin, (req, res) => {
     const user = req.session.user;
-    res.send(user);
+    
+    const formatted = img_manager.format_base64(
+        img_manager.blob_toBase64(user.imagem_perfil)
+    );
+    user.imagem_perfil = formatted;
+
+    res.render('usuario_menu', {user});
 });
 
 // INIT -----------------------------------------------------------------------

@@ -6,20 +6,35 @@ function controlImageInForms() {
     }
 }
 
-function controlImage(id='imagem_perfil', imgElm = 'imagem_img') {
+function generateImageConfirmPage() {
+    
+}
+
+function controlImage(initialSize = 150, id='imagem_perfil', imgElm = 'imagem_img') {
     const imgField = document.getElementById(id);
     const imgElement = document.getElementById(imgElm);
+    imgElement.width = imgElement.height = initialSize;
     imgField.addEventListener('change', (e) => {
         const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     imgElement.src= e.target.result;
-                    controlImageInForms()
+                    controlImageInForms();
                 };
                 reader.readAsDataURL(file);
             }
     });
+}
+
+//Convert Blob to Base64
+function getBase64FromBlob(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob)
+    })
 }
 
 async function getImageToForm(inputId = 'imagem_perfil_blob', imgId = 'imagem_img') {
@@ -29,10 +44,13 @@ async function getImageToForm(inputId = 'imagem_perfil_blob', imgId = 'imagem_im
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    canvas.width = img.width;
-    canvas.height = img.height;
+    document.querySelector('.perfil').appendChild(canvas)
+
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
     ctx.drawImage(img, 0, 0);
 
+    document.body.appendChild(canvas)
     //Get blob
     function getCanvasBlob() {
         return new Promise((resolve, reject) => {
@@ -43,16 +61,6 @@ async function getImageToForm(inputId = 'imagem_perfil_blob', imgId = 'imagem_im
                     resolve(blob)
                 }
             })
-        })
-    }
-
-    //Convert Blob to Base64
-    function getBase64FromBlob(blob) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(blob)
         })
     }
 
