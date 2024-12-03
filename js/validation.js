@@ -13,5 +13,5 @@ function validatePassword(event) {
 async function validateUserAdd(event) {
     event.preventDefault();
     getImageToForm();
-    // validatePassword(event);
+    validatePassword(event);
 }
