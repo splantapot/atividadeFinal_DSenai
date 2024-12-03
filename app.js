@@ -205,6 +205,10 @@ app.get('/picture', (req, res) => {
     res.render('sys_picture');
 })
 
+app.get('/template', (req, res) => {
+    res.render('sys_portfolio_template');
+})
+
 // Not found
 app.get('/not-found', (req, res) => {
     res.send('<h1>Página não encontrada</h1><br><a href="/logout">Voltar para o login</a>')

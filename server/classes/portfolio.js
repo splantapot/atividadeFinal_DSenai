@@ -1,0 +1,1 @@
+const DB_DEFAULT = require('../db_init.js').DB_DEFAULT;
