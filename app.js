@@ -38,6 +38,22 @@ const SERVER_PORT = 1101;
 
 // ROUTES ---------------------------------------------------------------------
 
+//Middleware check login
+async function verificarLogin(req, res, next) {
+    const userID = req.cookies['login'];
+    if (userID) {
+        // console.log('cookie used')
+        req.session.user = await db.usuario.buscarPorId(userID);
+    }
+    if (req.session.user) {
+        // console.log('session used')
+        req.session.user = await db.usuario.buscarPorEmail(req.session.user.email);
+        return next();
+    } else {
+        res.redirect('/');
+    }
+}
+
 // Auth
 app.get('/', async (req, res) => {
     res.redirect('/login');
@@ -77,7 +93,7 @@ app.post('/login', async (req, res) => {
             });
         }
 
-        res.redirect('/menu')
+        res.redirect('/menu');
     }
 });
 
@@ -90,19 +106,6 @@ app.get('/logout', (req, res) => {
         res.redirect('/login');
     });
 });
-
-async function verificarLogin(req, res, next) {
-    const userID = req.cookies['login'];
-    if (userID) {
-        req.session.user = await db.usuario.buscarPorId(userID);
-    }
-    if (req.session.user) {
-        req.session.user = await db.usuario.buscarPorId(req.session.user.usuario_id);
-        return next();
-    } else {
-        res.redirect('/');
-    }
-}
 
 // Usuario
 app.get('/usuario/cadastrar', (req, res) => {
@@ -201,6 +204,16 @@ app.get('/menu', verificarLogin, async (req, res) => {
 app.get('/picture', (req, res) => {
     res.render('sys_picture');
 })
+
+// Not found
+app.get('/not-found', (req, res) => {
+    res.send('<h1>Página não encontrada</h1><br><a href="/logout">Voltar para o login</a>')
+})
+
+// Middleware to error (404) - Not found
+app.use((req, res) => {
+    res.status(404).redirect('/not-found')
+});
 
 // INIT -----------------------------------------------------------------------
 app.listen(SERVER_PORT, () => {
