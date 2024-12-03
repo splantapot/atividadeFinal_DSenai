@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
 
+    <link rel="stylesheet" href="/css/image_picker.css">
     <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
-    <div class="offScreen hidden">
-        <button>Salvar</button>
-        <button>Cancelar</button>
+    <div class="image-prompt hidden">
+        <div class="image-prompt-box">
+            <div class="cropper-container">
+                <canvas></canvas>
+            </div>
+            <div class="button-box">
+                <div class="confirm">Confirmar</div>
+                <div class="cancel">Cancelar</div>
+            </div>
+        </div>
     </div>
 
     <form action="/usuario/cadastrar" method="post" onsubmit="validateUserAdd(event)" class="centered sized form-box">
@@ -43,14 +51,13 @@
             <a href="/login">Se já possui conta, entre aqui.</a>
         </div>
 
-        <div id="foto-div" class="hidden">
+        <div id="foto-div" class="foto-div hidden">
             <h3>Foto de Perfil</h3>
-            <div class="perfil">
-                <img id="imagem_img" src="/images/guest.png" alt="Imagem de Perfil">
-            </div>
-            <input type="file" name="imagem_perfil" id="imagem_perfil" accept=".jpg, .jpeg, .png">
-            <input type="hidden" name="imagem_base64" id="imagem_perfil_blob" value="">
-            <div class="button-fields"><div onclick="navigateFromTo('foto-div','form-cadastro')">Voltar</div></div>
+            <canvas id="preview-canvas"></canvas>
+            <label class="input-file" for="file-picker">Escolha uma imagem</label>
+            <input type="file" name="file-picker" id="file-picker" accept="image/*">
+            <input type="hidden" name="imagem_base64" id="imagem_base64">
+            <div class="button-fields"><div onclick="controlImageInForms(); navigateFromTo('foto-div','form-cadastro')">Voltar</div></div>
         </div>
 
         <div id="redes-div" class="hidden">
@@ -78,8 +85,10 @@
     <script src="/js/validation.js"></script>
     <script src="/js/notification.js"></script>
     <script>
-        controlImage();
         controlSocialMedia();
+
+        initPreview()
+        setupImageInput();
 
         const errorList = {'1': 'Esse email já foi registrado'};
         notification(errorList);

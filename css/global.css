@@ -95,29 +95,15 @@ form a:hover {
     border: 0;
 }
 
-.offScreen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0,0.3);
-    width: 100vw;
-    height: 100vh;
+.foto-div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.perfil {
-    flex-basis: 150px;
-    width: 150px;
-    margin: auto;
-}
-
-.perfil img {
+.foto-div canvas {
     width: 150px;
     height: 150px;
-    object-fit: cover;
-    object-position: left;
-    /* border-radius: 50%; */
-    background-color: #dfdfdf;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
 }
 
 .vertical-list {
@@ -172,9 +158,4 @@ header h2 {
 
 .g {
     background-color: rgb(100,255,120);
-}
-
-canvas {
-    border: 1px solid red;
-    position: absolute;
 }

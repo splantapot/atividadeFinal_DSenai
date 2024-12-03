@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS acessos (
 );
 
 INSERT INTO acessos(tipo) VALUES
-    ('Público', 'Privado');
+    ('Público'), ('Privado');
 
 CREATE TABLE IF NOT EXISTS comentarios (
     comentario_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,

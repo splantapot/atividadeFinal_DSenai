@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Imagens</title>
+    <link rel="stylesheet" href="/css/image_picker.css">
+</head>
+<body>
+
+    <!-- Deving tool -->
+    <!-- <canvas id="preview-canvas"></canvas> -->
+
+    <div class="image-prompt hidden">
+        <div class="image-prompt-box">
+            <div class="cropper-container">
+                <canvas></canvas>
+            </div>
+            <div class="button-box">
+                <div class="confirm">Confirmar</div>
+                <div class="cancel">Cancelar</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="centered box">
+        <label class="input-file" for="file-picker">Escolha uma imagem</label>
+        <input type="file" name="file-picker" id="file-picker" accept="image/*">
+        <input type="hidden" name="imagem_base64" id="imagem_base64">
+    </div>
+
+    <script src="/js/imageControl.js"></script>
+    <script>
+        setupImageInput();
+    </script>
+</body>
+</html>

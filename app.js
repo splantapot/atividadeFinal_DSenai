@@ -180,6 +180,11 @@ app.get('/menu', verificarLogin, (req, res) => {
     res.render('usuario_menu', {user});
 });
 
+// Testing
+app.get('/picture', (req, res) => {
+    res.render('sys_picture');
+})
+
 // INIT -----------------------------------------------------------------------
 app.listen(SERVER_PORT, () => {
     console.log(`Opened in: http://localhost:${SERVER_PORT}`);
