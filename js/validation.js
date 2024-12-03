@@ -15,3 +15,10 @@ async function validateUserAdd(event) {
     getImageToForm();
     validatePassword(event);
 }
+
+async function validateUserUpdate(event) {
+    event.preventDefault();
+    const form = event.target;
+    getImageToForm();
+    form.submit()
+}

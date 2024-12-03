@@ -48,6 +48,9 @@ app.get('/login', async (req, res) => {
     if (userID) {
         req.session.user = await db.usuario.buscarPorId(userID);
         return res.redirect('/menu');
+    } else if (req.session.user) {
+        req.session.user = await db.usuario.buscarPorEmail(req.session.user.email);
+        return res.redirect('/menu');
     }
 
     res.render('sys_login');
@@ -94,6 +97,7 @@ async function verificarLogin(req, res, next) {
         req.session.user = await db.usuario.buscarPorId(userID);
     }
     if (req.session.user) {
+        req.session.user = await db.usuario.buscarPorId(req.session.user.usuario_id);
         return next();
     } else {
         res.redirect('/');
@@ -168,14 +172,27 @@ app.post('/usuario/redefinir', async (req, res) => {
     res.redirect('/login?s=2');
 })
 
+app.post('/usuario/atualizar', verificarLogin, async (req, res) => {
+    const {nome, email, descricao_perfil, imagem_base64} = req.body;
+    const user = await db.usuario.buscarPorEmail(email);
+
+    await db.usuario.atualizarDados(user.usuario_id, nome, descricao_perfil, img_manager.base64_toBlob(imagem_base64));
+    req.session.user = await db.usuario.buscarPorEmail(email);
+
+    res.redirect('/menu');
+});
+
 // Home
-app.get('/menu', verificarLogin, (req, res) => {
+app.get('/menu', verificarLogin, async (req, res) => {
     const user = req.session.user;
-    
+
     const formatted = img_manager.format_base64(
         img_manager.blob_toBase64(user.imagem_perfil)
     );
     user.imagem_perfil = formatted;
+
+    delete user.hash_senha;
+    delete user.usuario_id;
 
     res.render('usuario_menu', {user});
 });

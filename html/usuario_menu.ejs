@@ -4,29 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal</title>
+    <link rel="stylesheet" href="/css/image_picker.css">
+    <link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
+    <div class="image-prompt hidden">
+        <div class="image-prompt-box">
+            <div class="cropper-container">
+                <canvas></canvas>
+            </div>
+            <div class="button-box">
+                <div class="confirm">Confirmar</div>
+                <div class="cancel">Cancelar</div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <h2>Gerenciador de Portfólios</h2>
-        <div class="perfil">
-            <img id="imagem_img" src="<%= user.imagem_perfil || '/images/guest.png' %>" alt="Imagem de Perfil" width="150px" height="150px">
+        <div class="header-options">
+            <div onclick="navigateFromTo('menu-principal', 'menu-configuracoes')">Configurações</div>
+            <div onclick="quitSystem()">Sair</div>
+            <img class="mini-perfil" id="imagem_img" src="<%= user.imagem_perfil || '/images/guest.png' %>" alt="Perfil" width="150px" height="150px">
         </div>
     </header>
 
-    <label>Meus Portfólios</label>
+    <div id="menu-principal">
+        <label>Meus Portfólios</label>
+    </div>
 
+    <div id="menu-configuracoes" class="box hidden">
+        <h2>Configurações</h2>
+        
+        <form action="/usuario/atualizar" method="post" onsubmit="validateUserUpdate(event)" class="sized form-box">
+            <div id="foto-div" class="foto-div">
+                <h3>Foto de Perfil</h3>
+                <canvas id="preview-canvas"></canvas>
+                <label class="input-file" for="file-picker">Alterar Imagem de Perfil</label>
+                <input type="file" id="file-picker" accept="image/*">
+                <input type="hidden" name="imagem_base64" id="imagem_base64">
+            </div>
+
+            <label for="nome">Nome:*</label>
+            <input name="nome" placeholder="Nome Completo" value="<%= user.nome %>" required>
+
+            <input name="email" type="hidden" value="<%= user.email %>">
+
+            <label for="descricao">Descrição do perfil (Bio):</label>
+            <h6>Essa descição estará visível em todos os seus portfólios.</h6>
+            <input name="descricao_perfil" placeholder="Descreva você" value="<%= user.descricao_perfil %>">
+
+            <input type="submit" value="Salvar alterações">
+
+        </form>
+        
+        <button onclick="alterarSenha()">Alterar senha</button>
+        <button onclick="navigateFromTo('menu-configuracoes','menu-principal')">Voltar</button>
+    </div>
+
+
+    <script src="/js/imageControl.js"></script>
+    <script src="/js/navigation.js"></script>
+    <script src="/js/validation.js"></script>
     <script>
         //Check for "user"
         const user = JSON.parse('<%- typeof user !== undefined? JSON.stringify(user) : undefined %>');
-        const userFields = ['usuario_id', 'nome', 'email', 'descricao_perfil']
-        for (const field of userFields) {
-            console.log(user[field])
-            if (!user[field]) {
-                alert(`Internal error: invalid field "${field}" in user`);
-                window.location.href = '/logout'
-                break;
-            }
+
+        initPreview(user.imagem_perfil);
+        setupImageInput();
+
+        function quitSystem() {
+            window.location.href = '/logout';
+        }
+
+        function goToHref(href) {
+            window.location.href = href;
+        }
+
+        function alterarSenha() {
+            if(confirm('Deseja prosseguir para a alteração de senha?')) goToHref('/usuario/recuperar');
         }
     </script>
 </body>

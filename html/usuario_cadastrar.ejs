@@ -22,7 +22,7 @@
     </div>
 
     <form action="/usuario/cadastrar" method="post" onsubmit="validateUserAdd(event)" class="centered sized form-box">
-        <div  id="form-cadastro">
+        <div id="form-cadastro">
             <h3>Cadastro de Usuário</h3>
             <h6>Os campos com * são obrigatórios</h6>
             <div class="fields">
@@ -40,6 +40,7 @@
                 <input name="confirma" type="password" placeholder="Confirmar senha" required>
 
                 <label for="descricao">Descrição do perfil (Bio):</label>
+                <h6>Essa descição estará visível em todos os seus portfólios.</h6>
                 <input name="descricao" placeholder="Descreva você">
 
                 <div class="button-fields">
@@ -55,7 +56,7 @@
             <h3>Foto de Perfil</h3>
             <canvas id="preview-canvas"></canvas>
             <label class="input-file" for="file-picker">Escolha uma imagem</label>
-            <input type="file" name="file-picker" id="file-picker" accept="image/*">
+            <input type="file" id="file-picker" accept="image/*">
             <input type="hidden" name="imagem_base64" id="imagem_base64">
             <div class="button-fields"><div onclick="controlImageInForms(); navigateFromTo('foto-div','form-cadastro')">Voltar</div></div>
         </div>

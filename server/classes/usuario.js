@@ -59,5 +59,19 @@ module.exports = {
                 }
             })
         });
+    },
+
+    atualizarDados(usuario_id, nome, descricao_perfil, imagem_perfil, db = DB_DEFAULT) {
+        return new Promise((resolve, reject) => {
+            const query = 'UPDATE usuarios SET nome = ?, descricao_perfil = ?, imagem_perfil = ? WHERE usuario_id = ?';
+            db.run(query, [nome, descricao_perfil, imagem_perfil, usuario_id], (err) => {
+                if (err) {
+                    console.log('Upd Dados err:', err.message);
+                    reject(err)
+                } else {
+                    resolve()
+                }
+            })
+        });
     }
 }

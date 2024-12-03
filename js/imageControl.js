@@ -189,6 +189,8 @@ function promptImage(file, minSize = 150, maxSize = 300) {
                 croppedCanvas.width = cropBox.width;
                 croppedCanvas.height = cropBox.height;
 
+                redrawCanvas(false);
+
                 croppedCtx.drawImage(
                     canvas,
                     cropBox.x, cropBox.y, cropBox.width, cropBox.height, // Fonte
@@ -211,10 +213,10 @@ function promptImage(file, minSize = 150, maxSize = 300) {
                 ctx.strokeRect(cropBox.x, cropBox.y, cropBox.width, cropBox.height);
             }
 
-            function redrawCanvas() {
+            function redrawCanvas(drawCrop = true) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                drawCropBox();
+                if (drawCrop) drawCropBox();
             }
         } else {
             prompt.hide();
@@ -265,7 +267,7 @@ function setupImageInput(dataManipulationFunction = renderImageInCanvas, id = "f
 }
 
 //Init preview-canvas
-function initPreview(id = 'preview-canvas', defaultImageSize = 150) {
+function initPreview(customData = null, id = 'preview-canvas', defaultImageSize = 150) {
     const img = new Image(defaultImageSize, defaultImageSize);
     img.onload = function() {
 
@@ -280,8 +282,14 @@ function initPreview(id = 'preview-canvas', defaultImageSize = 150) {
     const canvas = document.getElementById(id);
     const ctx = canvas.getContext('2d');
     
-    img.src = '/images/guest.png';
-    canvas.defaultImage = true;
+    if (customData) {
+        img.src = customData;
+        canvas.defaultImage = false;
+    } else {
+        img.src = '/images/guest.png';
+        canvas.defaultImage = true;
+    }
+
 }
 
 //Show "image loaded" in forms
@@ -300,9 +308,9 @@ function controlImageInForms(id = 'preview-canvas') {
 function getImageToForm(input_id = 'imagem_base64', canvas_id = 'preview-canvas') {
     const canvas = document.getElementById(canvas_id);
     const input = document.getElementById(input_id);
+    console.log('here inside func getimg')
     if (canvas && input) {
         const base64Image = canvas.toDataURL();
-        console.log(base64Image)
         input.value = base64Image;
     } else {
         console.error('Canvas ou input não encontrado.');
