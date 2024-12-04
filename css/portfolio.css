@@ -669,6 +669,10 @@ h3 {
     margin-bottom: 8px;
 }
 
+.atv-card a label:hover, .pj-card a label:hover{
+    color: var(--btnA);
+}
+
 #formulario div {
     display: flex;
     justify-content: space-around;

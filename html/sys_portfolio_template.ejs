@@ -16,7 +16,7 @@
         <div>
             <a href="#inicio">PÁGINA INICIAL</a>
             <a href="#sobre">SOBRE</a>
-            <a href="#escola">ESCOLA</a>
+            <!-- <a href="#escola">ESCOLA</a> -->
             <a href="#projetos">PROJETOS</a>
             <a href="#formulario">CONTATO</a>
             <a href="/logout">SAIR</a>
@@ -204,10 +204,10 @@
         <div>
             <form action="/contato" method="post">
                 <label for="nome">Nome:</label>
-                <input name="nome" type="text" required>
+                <input name="nome" type="text" value="<%=user.nome%>" required>
     
                 <label for="email">Email:</label>
-                <input name="email" type="email" required>
+                <input name="email" type="email" value="<%=user.email%>" required>
     
                 <label for="mensagem">Mensagem:</label>
                 <textarea name="mensagem" required></textarea>
@@ -219,6 +219,8 @@
     </section>
 
     <footer>
+        <label>Acompanhe-me:</label>
+        <br>
         <div id="lista-redes">
             <a href="https://www.instagram.com/splantapot_jvcr/" target="_blank">Instagram</a>
             <!-- <button class="add"></button> -->

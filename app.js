@@ -94,7 +94,7 @@ app.post('/login', async (req, res) => {
             });
         }
 
-        res.redirect('/template');
+        res.redirect('/menu');
     }
 });
 
@@ -194,23 +194,17 @@ app.get('/menu', verificarLogin, async (req, res) => {
         img_manager.blob_toBase64(user.imagem_perfil)
     );
     user.imagem_perfil = formatted;
-    admin = user.email == process.env.SERVER_EMAIL_ADMIN || false;
 
     delete user.hash_senha;
     delete user.usuario_id;
 
-    res.render('sys_portfolio_template', {user, admin});
+    const formacoes = await db.formacao.obterTodas();
+    res.render('sys_portfolio_template', {user, formacoes});
 });
 
 // Testing
 app.get('/picture', (req, res) => {
     res.render('sys_picture');
-})
-
-app.get('/template', async (req, res) => {
-    const formacoes = await db.formacao.obterTodas();
-    const experiencias = await db.experiencia.obterTodas();
-    res.render('sys_portfolio_template', {formacoes, experiencias});
 })
 
 // Not found
@@ -220,9 +214,9 @@ app.get('/not-found', (req, res) => {
 
 app.post('/contato', async (req, res) => {
     const {nome, email, mensagem} = req.body;
-    await email_manager.enviarEmail('jvcr1007@gmail.com.br', `Mensagem de ${nome}`, mensagem)
+    await email_manager.enviarEmail('jvcr1007@gmail.com', `Mensagem de ${nome}`, mensagem)
     await email_manager.enviarEmail(email, `Confirmação`, `Mensagem enviada para o João victor:\n\n"${mensagem}"`);
-    res.redirect('/template')
+    res.redirect('/template#formulario')
 })
 
 // Middleware to error (404) - Not found
