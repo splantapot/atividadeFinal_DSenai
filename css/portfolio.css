@@ -467,7 +467,7 @@ h3 {
 }
 
 .exp-card img {
-    width: 90%; /* Mantém a imagem responsiva */
+    width: auto; /* Mantém a imagem responsiva */
     height: auto;
     max-height: 160px; /* Limita a altura da imagem */
     margin-top: 15px;
@@ -579,11 +579,18 @@ h3 {
 /* A div interna de animação */
 .area-card div {
     width: 160px;
-    height: 120px;
+    height: 100px;
     background-color: transparent; /* Cor de fundo inicial */
     border-radius: 10px; /* Bordas arredondadas */
     transition: background-color 300ms ease; /* Transição suave para a animação */
     margin-bottom: 10px; /* Espaçamento entre o conteúdo e o título */
+    object-fit: cover;
+}
+
+.area-card div img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5%;
 }
 
 /* Quando o conteúdo estiver presente ou durante animações */
