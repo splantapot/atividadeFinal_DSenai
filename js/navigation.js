@@ -5,3 +5,7 @@ function navigateFromTo(from, to) {
     fromDiv.classList.add('hidden');
     toDiv.classList.remove('hidden')
 }
+
+function sendCadastro(object) {
+    window.location.href = `/add/${object}`
+}

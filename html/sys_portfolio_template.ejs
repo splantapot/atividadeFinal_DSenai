@@ -37,20 +37,22 @@
         </div>
     </section>
 
-    <section id="sobre" class="b">
+    <section id="sobre" class="b sobre">
         <div id="formacao">
             <div class="formacao-content">
                 <h1>Sobre</h1>
                 <h3>Formação Acadêmica</h3>
                 <ul if="lista-formacoes" class="formacao-list">
-                    <% formacoes.forEach((formacao) => { %>
-                        <li class="formacao-item">
-                            <p class="formacao-titulo"><%=formacao.nome%></p>
-                            <p class="formacao-descricao"><%=formacao.descricao%></p>
-                        </li>
-                    <% }) %>
+                    <% if (formacoes && formacoes.length > 0) { %>
+                        <% formacoes.forEach(function(formacao) { %>
+                            <li class="formacao-item">
+                                <p class="formacao-titulo"><%= formacao.nome %></p>
+                                <p class="formacao-descricao"><%= formacao.descricao %></p>
+                            </li>
+                        <% }) %>
+                    <% } %>             
                 </ul>
-                <!-- <button class="add"></button> -->
+                
             </div>
             <div class="formacao-imagem">
                 <img src="/images/blocks.jpg" alt="Blockss">
@@ -61,12 +63,11 @@
             <div>
                 <h3>Experiências</h3>
                 <div id="lista-experiencias">
-                    <!-- <div class="exp-card">
+                    <div class="exp-card">
+                        <h3>Título</h3>
                         <img>
-                        <h5>Título</h5>
-                        <label>Descrição</label>
-                    </div> -->
-                    <!-- <button class="add"></button> -->
+                        <p>Descrição</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,11 +76,11 @@
             <div>
                 <h3>Habilidades</h3>
                 <div id="lista-habilidades">
-                    <!-- <div class="hab-card">
+                    <div class="hab-card">
                         <h5>Nome</h5>
                         <label>Descrição</label>
-                    </div> -->
-                    <!-- <button class="add"></button> -->
+                    </div>
+                    <button class="add" onclick="sendCadastro('habilidade')"></button>
                 </div>
             </div>
         </div>
@@ -88,11 +89,10 @@
             <div>
                 <h3>Especialidades e Áreas de Interesse</h3>
                 <div id="lista-especialidades">
-                    <!-- <div class="area-card">
+                    <div class="area-card">
                         <div>Código de animação</div>
                         <h5>Nome</h5>
-                    </div> -->
-                    <!-- <button class="add"></button> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
         <div>
             <h1>Escola - Atividades Realizadas</h1>
             <div id="lista-atividades">
-                <!-- <div class="atv-card">
+                <div class="atv-card">
                     <img>
                     <div>
                         <h4>Nome</h4>
@@ -110,8 +110,7 @@
                         <label>Disciplina</label>
                         <label>Data</label>
                     </div>
-                </div> -->
-                <!-- <button class="add"></button> -->
+                </div>
             </div>
         </div>
         <button>Ver Mais</button>
@@ -121,7 +120,7 @@
         <div>
             <h1>Meus Projetos</h1>
             <div id="lista-projetos">
-                <!-- <div class="pj-card">
+                <div class="pj-card">
                     <img>
                     <div>
                         <h4>Título</h4>
@@ -129,8 +128,7 @@
                         <label>Data</label>
                         <label>Detalhes</label>
                     </div>
-                </div> -->
-                <!-- <button class="add"></button> -->
+                </div>
             </div>
         </div>
         <button>Ver Mais</button>
@@ -164,6 +162,7 @@
         </div>
     </footer>
 
+    <script src="/js/navigation.js"></script>
     <script>
         window.addEventListener("scroll", () => {
             const header = document.querySelector("header");

@@ -10,6 +10,7 @@ const session = require('express-session');
 const db = require('./server/db_manage.js');
 const email_manager = require('./server/email_manager.js');
 const img_manager = require('./server/img_manager.js');
+const process = require('process');
 // MODULE CONFIGURATION -------------------------------------------------------
 
 // setup directories
@@ -193,11 +194,12 @@ app.get('/menu', verificarLogin, async (req, res) => {
         img_manager.blob_toBase64(user.imagem_perfil)
     );
     user.imagem_perfil = formatted;
+    admin = user.email == process.env.SERVER_EMAIL_ADMIN || false;
 
     delete user.hash_senha;
     delete user.usuario_id;
 
-    res.render('usuario_menu', {user});
+    res.render('sys_portfolio_template', {user, admin});
 });
 
 // Testing
