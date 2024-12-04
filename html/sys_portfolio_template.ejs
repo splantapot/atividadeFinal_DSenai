@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="/css/portfolio.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Satisfy&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Geologica:wght@100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Satisfy&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -18,6 +18,8 @@
             <a href="#sobre">SOBRE</a>
             <a href="#escola">ESCOLA</a>
             <a href="#projetos">PROJETOS</a>
+            <a href="#formulario">CONTATO</a>
+            <a href="/logout">SAIR</a>
         </div>
     </header>
 
@@ -36,40 +38,35 @@
     </section>
 
     <section id="sobre" class="b">
-        <section id="formacao">
+        <div id="formacao">
             <div class="formacao-content">
                 <h1>Sobre</h1>
                 <h3>Formação Acadêmica</h3>
-                <ul class="formacao-list">
-                    <li class="formacao-item">
-                        <p class="formacao-titulo">Ensino Médio</p>
-                        <p class="formacao-descricao">Ensino Médio em conclusão na escola SESI Conselheiro Saraiva. Medalhista em várias Olimpíadas Científicas.</p>
-                    </li>
-                    <li class="formacao-item">
-                        <p class="formacao-titulo">Técnico em Desenvolvimento de Sistemas</p>
-                        <p class="formacao-descricao">Técnico em conclusão pelo SENAI Centro de Formação Profissional Cândido Athayde.</p>
-                    </li>
-                    <li class="formacao-item">
-                        <p class="formacao-titulo">Curso: Modelagem de Negócios</p>
-                        <p class="formacao-descricao">Curso realizado no Centro de Tecnologia da Cerâmica Wildson Gonçalves.</p>
-                    </li>
+                <ul if="lista-formacoes" class="formacao-list">
+                    <% formacoes.forEach((formacao) => { %>
+                        <li class="formacao-item">
+                            <p class="formacao-titulo"><%=formacao.nome%></p>
+                            <p class="formacao-descricao"><%=formacao.descricao%></p>
+                        </li>
+                    <% }) %>
                 </ul>
+                <!-- <button class="add"></button> -->
             </div>
             <div class="formacao-imagem">
                 <img src="/images/blocks.jpg" alt="Blockss">
             </div>
-        </section>        
+        </div>        
 
         <div id="experiencias">
             <div>
                 <h3>Experiências</h3>
                 <div id="lista-experiencias">
-                    <div class="exp-card">
+                    <!-- <div class="exp-card">
                         <img>
                         <h5>Título</h5>
                         <label>Descrição</label>
-                    </div>
-                    <button></button>
+                    </div> -->
+                    <!-- <button class="add"></button> -->
                 </div>
             </div>
         </div>
@@ -78,30 +75,94 @@
             <div>
                 <h3>Habilidades</h3>
                 <div id="lista-habilidades">
-                    <div class="hab-card">
+                    <!-- <div class="hab-card">
                         <h5>Nome</h5>
                         <label>Descrição</label>
-                    </div>
-                    <button></button>
+                    </div> -->
+                    <!-- <button class="add"></button> -->
                 </div>
             </div>
         </div>
 
-        <div id="especialidades"><div>
-            <h3>Especialidades e Áreas de Interesse</h3>
-            <div id="lista-especialidades">
-                <div class="area-card">
-                    <div>Código fonte da animação</div>
-                    <h5>Nome</h5>
+        <div id="especialidades">
+            <div>
+                <h3>Especialidades e Áreas de Interesse</h3>
+                <div id="lista-especialidades">
+                    <!-- <div class="area-card">
+                        <div>Código de animação</div>
+                        <h5>Nome</h5>
+                    </div> -->
+                    <!-- <button class="add"></button> -->
                 </div>
-                <button></button>
             </div>
-        </div></div>
+        </div>
     </section>
 
-    <section id="escola" class="a"></section>
+    <section id="escola" class="a">
+        <div>
+            <h1>Escola - Atividades Realizadas</h1>
+            <div id="lista-atividades">
+                <!-- <div class="atv-card">
+                    <img>
+                    <div>
+                        <h4>Nome</h4>
+                        <label>Descricao</label>
+                        <label>Disciplina</label>
+                        <label>Data</label>
+                    </div>
+                </div> -->
+                <!-- <button class="add"></button> -->
+            </div>
+        </div>
+        <button>Ver Mais</button>
+    </section>
 
-    <section id="projetos" class="b"></section>
+    <section id="projetos" class="b">
+        <div>
+            <h1>Meus Projetos</h1>
+            <div id="lista-projetos">
+                <!-- <div class="pj-card">
+                    <img>
+                    <div>
+                        <h4>Título</h4>
+                        <label>Descricao</label>
+                        <label>Data</label>
+                        <label>Detalhes</label>
+                    </div>
+                </div> -->
+                <!-- <button class="add"></button> -->
+            </div>
+        </div>
+        <button>Ver Mais</button>
+    </section>
+
+    <section id="formulario" class="a">
+        <h1>Entre em Contato</h1>
+        <div>
+            <form action="/contato" method="post">
+                <label for="nome">Nome:</label>
+                <input name="nome" type="text" required>
+    
+                <label for="email">Email:</label>
+                <input name="email" type="email" required>
+    
+                <label for="mensagem">Mensagem:</label>
+                <textarea name="mensagem" required></textarea>
+                    
+                <input type="submit" value="Enviar">
+            </form>
+            <img>
+        </div>
+    </section>
+
+    <footer>
+        <div id="lista-redes">
+            <a>Rede 1</a>
+            <a>Rede 2</a>
+            <a>Rede 3</a>
+            <!-- <button class="add"></button> -->
+        </div>
+    </footer>
 
     <script>
         window.addEventListener("scroll", () => {

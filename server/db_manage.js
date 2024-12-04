@@ -1,7 +1,9 @@
 const usuario = require('./classes/usuario.js');
-const rede_social = require('./classes/rede_social.js');
+const formacao = require('./classes/formacao.js');
+const experiencia = require('./classes/experiencia.js');
 
 module.exports = {
     usuario,
-    rede_social
+    formacao,
+    experiencia
 }

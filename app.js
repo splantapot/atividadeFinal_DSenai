@@ -93,7 +93,7 @@ app.post('/login', async (req, res) => {
             });
         }
 
-        res.redirect('/menu');
+        res.redirect('/template');
     }
 });
 
@@ -205,8 +205,10 @@ app.get('/picture', (req, res) => {
     res.render('sys_picture');
 })
 
-app.get('/template', (req, res) => {
-    res.render('sys_portfolio_template');
+app.get('/template', async (req, res) => {
+    const formacoes = await db.formacao.obterTodas();
+    const experiencias = await db.experiencia.obterTodas();
+    res.render('sys_portfolio_template', {formacoes, experiencias});
 })
 
 // Not found
