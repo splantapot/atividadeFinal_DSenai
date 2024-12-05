@@ -214,9 +214,9 @@ app.get('/not-found', (req, res) => {
 
 app.post('/contato', async (req, res) => {
     const {nome, email, mensagem} = req.body;
-    await email_manager.enviarEmail('jvcr1007@gmail.com', `Mensagem de ${nome}`, mensagem)
+    await email_manager.enviarEmail('jvcr1007@gmail.com', `Mensagem de ${email}`, `${mensagem} \nPor: ${nome}`)
     await email_manager.enviarEmail(email, `Confirmação`, `Mensagem enviada para o João victor:\n\n"${mensagem}"`);
-    res.redirect('/template#formulario')
+    res.redirect('/menu#formulario')
 })
 
 // Middleware to error (404) - Not found
